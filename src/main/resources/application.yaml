@@ -1,3 +1,6 @@
 spring:
   application:
     name: backend
+  data:
+    mongodb:
+      url: mongodb+srv://MOIDA_DB:DRXznUwGozg1c0ZO@cluster0.ujgb2fn.mongodb.net/
