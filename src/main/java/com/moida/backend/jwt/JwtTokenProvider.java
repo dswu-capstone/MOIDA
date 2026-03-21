@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
 /*
 토큰 생성, 검증, 정보 추출
@@ -16,18 +16,18 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${jwt.secret}")
+    @Value("${JWT_SECRET}")
     private String secretKey;
 
-    @Value("${jwt.access-expiration}")
+    @Value("${JWT_ACCESS_EXPIRATION}")
     private long accessTokenExpirationTime;
 
-    @Value("${jwt.refresh-expiration}")
+    @Value("${JWT_REFRESH_EXPIRATION}")
     private long refreshTokenExpirationTime;
 
     //키 생성
     private Key getSigningKey() {
-        byte[] keyBytes = Base64.getDecoder().decode(secretKey);
+        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

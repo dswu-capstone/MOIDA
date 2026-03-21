@@ -1,4 +1,4 @@
-package com.moida.backend.member.Controller;
+package com.moida.backend.member.controller;
 
 import com.moida.backend.member.dtos.LoginRequest;
 import com.moida.backend.member.dtos.LoginResponse;

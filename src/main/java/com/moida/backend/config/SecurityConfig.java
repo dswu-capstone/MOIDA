@@ -41,7 +41,8 @@ public class SecurityConfig {
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/signup/**", "/api/login/**").permitAll()
+                        .requestMatchers("/api/signup", "/api/login").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated() // 이 외 모든 요청은 토큰 인증 필요
                 )
 

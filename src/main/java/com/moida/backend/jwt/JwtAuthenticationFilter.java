@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
+        log.info("Filter check - URI: {}, Method: {}", request.getRequestURI(), request.getMethod());
         // Request Header에서 JWT 토큰 추출
         String token = resolveToken(request);
 
