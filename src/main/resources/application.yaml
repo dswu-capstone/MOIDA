@@ -3,4 +3,4 @@ spring:
     name: backend
   data:
     mongodb:
-      url: mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@cluster0.ujgb2fn.mongodb.net/
+      uri: mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@cluster0.ujgb2fn.mongodb.net/mydb?retryWrites=true&w=majority
