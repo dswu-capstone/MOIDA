@@ -3,6 +3,7 @@ package com.moida.backend.member;
 User 엔티티
  */
 
+import com.moida.backend.member.dtos.ProfileRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -62,5 +64,30 @@ public class Member {
         this.level = level;
         this.locationType = locationType;
         this.region = region;
+    }
+
+    /**
+     * 프로필 정보 업데이트(회원가입시, 프로필 등록시)
+     */
+    public void setProfileInfo(ProfileRequest request) {
+        // 문자열 필드 체크 (null도 아니고 ""도 아닐 때만 업데이트)
+        if (StringUtils.hasText(request.getNickname())) this.nickname = request.getNickname();
+        if (StringUtils.hasText(request.getMajor())) this.major = request.getMajor();
+        if (StringUtils.hasText(request.getGoal())) this.goal = request.getGoal();
+        if (StringUtils.hasText(request.getIntroduce())) this.introduce = request.getIntroduce();
+        if (StringUtils.hasText(request.getLevel())) this.level = request.getLevel();
+        if (StringUtils.hasText(request.getLocationType())) this.locationType = request.getLocationType();
+        if (StringUtils.hasText(request.getRegion())) this.region = request.getRegion();
+
+        // 리스트 필드 체크 (null도 아니고 항목이 최소 하나라도 있을 때만 업데이트)
+        if (request.getInterestCategory() != null && !request.getInterestCategory().isEmpty()) {
+            this.interestCategory = request.getInterestCategory();
+        }
+        if (request.getAvailableDays() != null && !request.getAvailableDays().isEmpty()) {
+            this.availableDays = request.getAvailableDays();
+        }
+        if (request.getAvailableTime() != null && !request.getAvailableTime().isEmpty()) {
+            this.availableTime = request.getAvailableTime();
+        }
     }
 }
