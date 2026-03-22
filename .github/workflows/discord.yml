@@ -1,0 +1,27 @@
+name: Discord Notification
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Official Notification
+        run: |
+          # 변수 설정
+          BRANCH="${{ github.ref_name }}"
+          AUTHOR="${{ github.actor }}"
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          COMMIT_URL="${{ github.event.head_commit.url }}"
+
+          CONTENT="[GitHub] New Push Event\n- Repository Branch: $BRANCH\n- Author: $AUTHOR\n- Commit Message: $COMMIT_MSG\n- Details: $COMMIT_URL"
+
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d "{\"content\": \"$CONTENT\"}" \
+               ${{ secrets.DISCORD_WEBHOOK_URL }}
