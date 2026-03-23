@@ -10,19 +10,18 @@ jobs:
   notify:
     runs-on: ubuntu-latest
 
-
     steps:
-      - name: Send Official Notification
+      - name: Send Commit Message and URL
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+          COMMIT_URL: ${{ github.event.head_commit.url }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          # 변수 설정
-          BRANCH="${{ github.ref_name }}"
-          AUTHOR="${{ github.actor }}"
-          COMMIT_MSG="${{ github.event.head_commit.message }}"
-          COMMIT_URL="${{ github.event.head_commit.url }}"
+          PAYLOAD=$(jq -n \
+            --arg msg "$COMMIT_MSG"$'\n'"$COMMIT_URL" \
+            '{content: $msg}')
 
-          CONTENT="[GitHub] New Push Event\n- Repository Branch: $BRANCH\n- Author: $AUTHOR\n- Commit Message: $COMMIT_MSG\n- Details: $COMMIT_URL"
-
-          curl -H "Content-Type: application/json" \
+          curl -s -H "Content-Type: application/json" \
                -X POST \
-               -d "{\"content\": \"$CONTENT\"}" \
-               ${{ secrets.DISCORD_WEBHOOK_URL }}
+               -d "$PAYLOAD" \
+               "$DISCORD_WEBHOOK_URL"
