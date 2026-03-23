@@ -37,10 +37,24 @@ public class PostResponse {
 //    }
 
     // 게시글 등록 응답용
-    public static PostResponse from(Post post) {
+//    public static PostResponse from(Post post) {
+//        return PostResponse.builder()
+//                .message("게시글 등록 성공")
+//                .id(post.getId())
+//                .memberId(post.getMemberId())
+//                .boardType(post.getBoardType())
+//                .title(post.getTitle())
+//                .body(post.getBody())
+//                .category(post.getCategory())
+//                .tags(post.getTags())
+//                .createdAt(post.getCreatedAt())
+//                .build();
+//    }
+    public static PostResponse from(Post post, String nickname) {
         return PostResponse.builder()
                 .message("게시글 등록 성공")
                 .id(post.getId())
+                .writer(nickname)
                 .memberId(post.getMemberId())
                 .boardType(post.getBoardType())
                 .title(post.getTitle())

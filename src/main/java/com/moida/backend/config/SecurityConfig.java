@@ -43,6 +43,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/signup", "/api/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/boards").permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated() // 이 외 모든 요청은 토큰 인증 필요
                 )
