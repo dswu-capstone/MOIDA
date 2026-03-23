@@ -8,3 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface PostRepository extends MongoRepository<Post, String> {
 }
 
+//MongoDB에 데이터를 저장하거나 조회
