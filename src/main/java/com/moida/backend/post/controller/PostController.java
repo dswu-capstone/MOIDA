@@ -1,5 +1,6 @@
 package com.moida.backend.post.controller;
 
+import com.moida.backend.post.dtos.PostListResponse;
 import com.moida.backend.post.dtos.PostRequest;
 import com.moida.backend.post.dtos.PostResponse;
 import com.moida.backend.post.service.PostService;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j // log사용 - 에러 알기 위해서
 @RestController
@@ -33,6 +36,19 @@ public class PostController {
     @GetMapping("/{id}")
     public ResponseEntity<PostResponse> getPost(@PathVariable String id) {
         PostResponse response = postService.getPost(id);
+        return ResponseEntity.ok(response);
+    }
+
+    // 게시글 목록 조회
+    @GetMapping
+    public ResponseEntity<PostListResponse> getPostList(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) List<String> tags,
+            @RequestParam(required = false) String cursor,
+            @RequestParam(defaultValue = "10") int limit
+    ) {
+        PostListResponse response = postService.getPostList(search, type, tags, cursor, limit);
         return ResponseEntity.ok(response);
     }
 }
