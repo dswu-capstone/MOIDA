@@ -23,6 +23,8 @@ public class Post {
     private String title;         // 제목
     private String body;          // 본문
     private String category;      // 카테고리 (개발/IT, 디자인 등)
+    private String summary;       // AI 요약
+    private List<String> keywords;// AI 키워드
     private List<String> tags;    // AI 생성 태그
 
     @CreatedDate
@@ -33,12 +35,14 @@ public class Post {
 
     @Builder
     public Post(String memberId, String boardType, String title,
-                String body, String category, List<String> tags) {
+                String body, String category, String summary, List<String> keywords, List<String> tags) {
         this.memberId = memberId;
         this.boardType = boardType;
         this.title = title;
         this.body = body;
         this.category = category;
+        this.summary = summary;
+        this.keywords = keywords;
         this.tags = tags;
     }
 }

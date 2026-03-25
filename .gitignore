@@ -38,3 +38,21 @@ out/
 
 # env 파일 (환경변수)
 .env
+
+### Python (ai-server) ###
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+.venv/
+venv/
+env/
+
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+.DS_Store
+Thumbs.db

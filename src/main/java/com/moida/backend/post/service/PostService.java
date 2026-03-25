@@ -12,9 +12,17 @@ import com.moida.backend.post.repository.PostRepository;
 import com.moida.backend.post.repository.PostSearchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +33,10 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final PostSearchRepository postSearchRepository;
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    @Value("${ai.server.base-url:http://127.0.0.1:8002}")
+    private String aiServerBaseUrl;
 
     // 게시글 등록
 //    public PostResponse createPost(String memberId, PostRequest request) {
@@ -60,9 +72,36 @@ public class PostService {
                 .build();
 
         Post savedPost = postRepository.save(post);
+        triggerSavePostEmbedding(savedPost);
         log.info("게시글 등록 완료 - 작성자: {}, 제목: {}", memberId, savedPost.getTitle());
 
         return PostResponse.from(savedPost, member.getNickname());
+    }
+
+    private void triggerSavePostEmbedding(Post post) {
+        try {
+            String url = aiServerBaseUrl + "/ai/recommend/embedding";
+
+            Map<String, Object> postDoc = new HashMap<>();
+            postDoc.put("title", post.getTitle());
+            postDoc.put("body", post.getBody());
+            postDoc.put("category", post.getCategory());
+            postDoc.put("tags", post.getTags());
+
+            Map<String, Object> payload = new HashMap<>();
+            payload.put("post_id", post.getId());
+            payload.put("post_doc", postDoc);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
+
+            ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+            log.info("AI 임베딩 저장 호출 완료 - postId: {}, status: {}", post.getId(), response.getStatusCode());
+        } catch (Exception e) {
+            // 게시글 저장 자체는 성공 처리하고, AI 연동 실패는 로그만 남김
+            log.warn("AI 임베딩 저장 호출 실패 - postId: {}, error: {}", post.getId(), e.getMessage());
+        }
     }
     // 게시글 상세 조회
     public PostResponse getPost(String postId) {

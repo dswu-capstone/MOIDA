@@ -19,6 +19,8 @@ public class PostResponse {
     private String title;
     private String body;
     private String category;
+    private String summary;
+    private List<String> keywords;
     private List<String> tags;
     private LocalDateTime createdAt;
     private String writer;        // 작성자 닉네임
@@ -60,6 +62,8 @@ public class PostResponse {
                 .title(post.getTitle())
                 .body(post.getBody())
                 .category(post.getCategory())
+                .summary(post.getSummary())
+                .keywords(post.getKeywords())
                 .tags(post.getTags())
                 .createdAt(post.getCreatedAt())
                 .build();
@@ -75,6 +79,8 @@ public class PostResponse {
                 .title(post.getTitle())
                 .body(post.getBody())
                 .category(post.getCategory())
+                .summary(post.getSummary())
+                .keywords(post.getKeywords())
                 .tags(post.getTags())
                 .createdAt(post.getCreatedAt())
                 .build();

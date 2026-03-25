@@ -16,6 +16,8 @@ public class PostSummary {
     private String boardType;
     private String title;
     private String category;
+    private String summary;
+    private List<String> keywords;
     private List<String> tags;
 
     public static PostSummary from(Post post) {
@@ -24,6 +26,8 @@ public class PostSummary {
                 .boardType(post.getBoardType())
                 .title(post.getTitle())
                 .category(post.getCategory())
+                .summary(post.getSummary())
+                .keywords(post.getKeywords())
                 .tags(post.getTags())
                 .build();
     }
