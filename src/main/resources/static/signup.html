@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOIDA - 회원가입</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body>
+
+<div class="auth-bg">
+    <div class="auth-card">
+
+        <div class="auth-logo">MOIDA</div>
+        <p class="auth-title">회원가입</p>
+
+        <div class="auth-form">
+
+            <div class="field">
+                <label class="field-label" for="username">아이디</label>
+                <input class="field-input" id="username" type="text" placeholder="사용할 아이디 입력" />
+            </div>
+
+            <div class="field">
+                <label class="field-label" for="password">비밀번호</label>
+                <input class="field-input" id="password" type="password" placeholder="사용할 비밀번호 입력" />
+            </div>
+
+            <div class="field">
+                <label class="field-label" for="nickname">닉네임</label>
+                <input class="field-input" id="nickname" type="text" placeholder="사용할 닉네임 입력" />
+            </div>
+
+            <div class="field">
+                <label class="field-label" for="major">전공</label>
+                <input class="field-input" id="major" type="text" placeholder="전공을 입력하세요" />
+            </div>
+
+            <div class="field">
+                <label class="field-label">관심 카테고리</label>
+                <div class="tag-group">
+                    <label class="tag-option">
+                        <input type="checkbox" value="개발/IT" />
+                        <span>#개발/IT</span>
+                    </label>
+                    <label class="tag-option">
+                        <input type="checkbox" value="디자인" />
+                        <span>#디자인</span>
+                    </label>
+                    <label class="tag-option">
+                        <input type="checkbox" value="경영/마케팅" />
+                        <span>#경영/마케팅</span>
+                    </label>
+                    <label class="tag-option">
+                        <input type="checkbox" value="자격증" />
+                        <span>#자격증</span>
+                    </label>
+                    <label class="tag-option">
+                        <input type="checkbox" value="취업/진로" />
+                        <span>#취업/진로</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="field-label" for="goal">목표</label>
+                <input class="field-input" id="goal" type="text" placeholder="예: 상반기 내 코딩테스트 합격!" />
+            </div>
+
+            <button class="btn-primary" type="button">가입 완료</button>
+
+        </div>
+
+        <hr class="auth-divider" />
+
+        <p class="auth-footer">
+            이미 계정이 있으신가요? <a href="index.html">로그인</a>
+        </p>
+
+    </div>
+</div>
+
+</body>
+</html>
