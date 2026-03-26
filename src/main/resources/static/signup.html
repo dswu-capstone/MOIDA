@@ -41,26 +41,11 @@
             <div class="field">
                 <label class="field-label">관심 카테고리</label>
                 <div class="tag-group">
-                    <label class="tag-option">
-                        <input type="checkbox" value="개발/IT" />
-                        <span>#개발/IT</span>
-                    </label>
-                    <label class="tag-option">
-                        <input type="checkbox" value="디자인" />
-                        <span>#디자인</span>
-                    </label>
-                    <label class="tag-option">
-                        <input type="checkbox" value="경영/마케팅" />
-                        <span>#경영/마케팅</span>
-                    </label>
-                    <label class="tag-option">
-                        <input type="checkbox" value="자격증" />
-                        <span>#자격증</span>
-                    </label>
-                    <label class="tag-option">
-                        <input type="checkbox" value="취업/진로" />
-                        <span>#취업/진로</span>
-                    </label>
+                    <label class="tag-option"><input type="checkbox" name="category" value="개발/IT" /><span>#개발/IT</span></label>
+                    <label class="tag-option"><input type="checkbox" name="category" value="디자인" /><span>#디자인</span></label>
+                    <label class="tag-option"><input type="checkbox" name="category" value="경영/마케팅" /><span>#경영/마케팅</span></label>
+                    <label class="tag-option"><input type="checkbox" name="category" value="자격증" /><span>#자격증</span></label>
+                    <label class="tag-option"><input type="checkbox" name="category" value="취업/진로" /><span>#취업/진로</span></label>
                 </div>
             </div>
 
@@ -69,7 +54,9 @@
                 <input class="field-input" id="goal" type="text" placeholder="예: 상반기 내 코딩테스트 합격!" />
             </div>
 
-            <button class="btn-primary" type="button">가입 완료</button>
+            <p class="error-msg" id="errorMsg"></p>
+
+            <button class="btn-primary" type="button" onclick="handleSignup()">가입 완료</button>
 
         </div>
 
@@ -82,5 +69,7 @@
     </div>
 </div>
 
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
 </body>
 </html>
