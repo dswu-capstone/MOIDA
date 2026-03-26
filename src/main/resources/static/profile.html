@@ -10,7 +10,6 @@
 </head>
 <body>
 
-<!-- 헤더 (post.html 상단 유지, 내 프로필 제거) -->
 <header class="app-header">
   <div class="header-container">
     <a href="post.html" class="header-logo">MOIDA</a>
@@ -21,26 +20,20 @@
   </div>
 </header>
 
-<!-- 본문 -->
 <main class="container">
   <div class="profile-wrap">
-
-
     <form class="profile-form" onsubmit="return false;">
 
-      <!-- 닉네임 (읽기 전용) -->
       <div class="profile-section">
         <label class="profile-label">닉네임</label>
-        <div class="profile-nickname" id="nicknameDisplay">감자핫도그</div>
+        <div class="profile-nickname" id="nicknameDisplay"></div>
       </div>
 
-      <!-- 전공 -->
       <div class="profile-section">
         <label class="profile-label" for="major">전공</label>
         <input class="profile-input" id="major" type="text" placeholder="전공을 입력하세요" />
       </div>
 
-      <!-- 관심 분야 (최대 2개) -->
       <div class="profile-section">
         <label class="profile-label">관심 분야 <span class="label-hint">(최대 2개 선택)</span></label>
         <div class="tag-select" id="interestTags">
@@ -52,13 +45,11 @@
         </div>
       </div>
 
-      <!-- 나의 목표 -->
       <div class="profile-section">
         <label class="profile-label" for="goal">나의 목표</label>
         <input class="profile-input" id="goal" type="text" placeholder="예: 상반기 내 코딩테스트 합격!" />
       </div>
 
-      <!-- 가능 시간 -->
       <div class="profile-section">
         <label class="profile-label">가능 시간</label>
         <div class="days-wrap">
@@ -77,13 +68,11 @@
         </div>
       </div>
 
-      <!-- 한 줄 자기소개 -->
       <div class="profile-section">
         <label class="profile-label" for="introduce">한 줄 자기소개</label>
         <textarea class="profile-input profile-textarea" id="introduce" placeholder="간단한 자기소개를 입력해주세요."></textarea>
       </div>
 
-      <!-- 수준 -->
       <div class="profile-section">
         <label class="profile-label">수준</label>
         <div class="radio-wrap">
@@ -93,7 +82,6 @@
         </div>
       </div>
 
-      <!-- 선호 모임 형태 -->
       <div class="profile-section">
         <label class="profile-label">선호 모임 형태</label>
         <div class="radio-wrap">
@@ -102,7 +90,6 @@
         </div>
       </div>
 
-      <!-- 선호 지역 -->
       <div class="profile-section">
         <label class="profile-label">선호 지역 <span class="label-hint">(클릭하여 전체 보기)</span></label>
         <div class="region-wrap collapsed" id="regionWrap">
@@ -130,34 +117,16 @@
         <button type="button" class="region-toggle" id="regionToggle" onclick="toggleRegion()">▼ 전체 보기</button>
       </div>
 
-      <!-- 저장 버튼 -->
       <div class="profile-footer">
-        <button class="btn-primary profile-save-btn" type="button">저장하기</button>
+        <button class="btn-primary profile-save-btn" type="button" onclick="saveProfile()">저장하기</button>
       </div>
 
     </form>
   </div>
 </main>
 
-<script>
-  function toggleRegion() {
-    const wrap = document.getElementById('regionWrap');
-    const btn  = document.getElementById('regionToggle');
-    const isCollapsed = wrap.classList.contains('collapsed');
-    wrap.classList.toggle('collapsed');
-    btn.textContent = isCollapsed ? '▲ 접기' : '▼ 전체 보기';
-  }
-
-  // 관심 분야 최대 2개 제한
-  document.querySelectorAll('input[name="interest"]').forEach(cb => {
-    cb.addEventListener('change', () => {
-      const checked = document.querySelectorAll('input[name="interest"]:checked');
-      if (checked.length > 2) {
-        cb.checked = false;
-      }
-    });
-  });
-</script>
-
+<!-- api.js 먼저, profile.js 나중에 -->
+<script src="js/api.js"></script>
+<script src="js/profile.js"></script>
 </body>
 </html>
