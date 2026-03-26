@@ -25,90 +25,255 @@
     </div>
 </header>
 
+<!--<main class="container">-->
+<!--    <nav class="post-tabs">-->
+<!--        <div class="tab-group">-->
+<!--            <button class="tab active">전체</button>-->
+<!--            <button class="tab">스터디</button>-->
+<!--            <button class="tab">이벤트</button>-->
+<!--        </div>-->
+<!--        <button class="tab-ai">✨ AI로 게시글 추천받기</button>-->
+<!--    </nav>-->
+
+<!--    <div class="category-tags">-->
+<!--        <button class="tag active">#개발/IT</button>-->
+<!--        <button class="tag">#디자인</button>-->
+<!--        <button class="tag">#경영/마케팅</button>-->
+<!--        <button class="tag">#자격증</button>-->
+<!--        <button class="tag">#취업/진로</button>-->
+<!--        <button class="tag">#어학</button>-->
+<!--    </div>-->
+
+<!--    <div class="post-grid">-->
+<!--        <article class="post-card" onclick="location.href='post-detail.html'">-->
+<!--            <div class="card-badge badge-study">스터디</div>-->
+<!--            <h3 class="card-title">파이썬 기초 스터디원 모집합니다!</h3>-->
+<!--            <div class="card-tags">-->
+<!--                <span>#주말오후</span>-->
+<!--                <span>#개발/IT</span>-->
+<!--            </div>-->
+<!--        </article>-->
+
+<!--        <article class="post-card" onclick="location.href='post-detail.html'">-->
+<!--            <div class="card-badge badge-event">이벤트</div>-->
+<!--            <h3 class="card-title">2026 대학생 연합 해커톤 모집</h3>-->
+<!--            <div class="card-tags">-->
+<!--                <span>#IT/개발</span>-->
+<!--                <span>#무박2일</span>-->
+<!--            </div>-->
+<!--        </article>-->
+
+<!--        <article class="post-card" onclick="location.href='post-detail.html'">-->
+<!--            <div class="card-badge badge-study">스터디</div>-->
+<!--            <h3 class="card-title">SQLD 자격증 한 달 완성 같이해요</h3>-->
+<!--            <div class="card-tags">-->
+<!--                <span>#온라인</span>-->
+<!--                <span>#자격증</span>-->
+<!--            </div>-->
+<!--        </article>-->
+
+<!--        <article class="post-card" onclick="location.href='post-detail.html'">-->
+<!--            <div class="card-badge badge-study">스터디</div>-->
+<!--            <h3 class="card-title">리액트 프로젝트 사이드 프로젝트</h3>-->
+<!--            <div class="card-tags">-->
+<!--                <span>#프론트엔드</span>-->
+<!--                <span>#온라인</span>-->
+<!--            </div>-->
+<!--        </article>-->
+
+<!--        <article class="post-card" onclick="location.href='post-detail.html'">-->
+<!--            <div class="card-badge badge-event">이벤트</div>-->
+<!--            <h3 class="card-title">UX/UI 포트폴리오 리뷰 세미나</h3>-->
+<!--            <div class="card-tags">-->
+<!--                <span>#디자인</span>-->
+<!--                <span>#선착순</span>-->
+<!--            </div>-->
+<!--        </article>-->
+
+<!--        <article class="post-card" onclick="location.href='post-detail.html'">-->
+<!--            <div class="card-badge badge-study">스터디</div>-->
+<!--            <h3 class="card-title">토익 900점 목표 매일 인증 스터디</h3>-->
+<!--            <div class="card-tags">-->
+<!--                <span>#어학</span>-->
+<!--                <span>#아침기상</span>-->
+<!--            </div>-->
+<!--        </article>-->
+<!--    </div>-->
+
+<!--    <div class="post-footer">-->
+<!--        <div class="pagination">-->
+<!--            <button class="page-btn">&lt;</button>-->
+<!--            <span class="page-info">2 / 5</span>-->
+<!--            <button class="page-btn">&gt;</button>-->
+<!--        </div>-->
+<!--        <button class="btn-primary write-btn" onclick="location.href='post-write.html'">게시글 등록하기</button>-->
+<!--    </div>-->
+<!--</main>-->
 <main class="container">
     <nav class="post-tabs">
         <div class="tab-group">
-            <button class="tab active">전체</button>
-            <button class="tab">스터디</button>
-            <button class="tab">이벤트</button>
+            <button class="tab active" data-type="total">전체</button>
+            <button class="tab" data-type="study">스터디</button>
+            <button class="tab" data-type="event">이벤트</button>
         </div>
         <button class="tab-ai">✨ AI로 게시글 추천받기</button>
     </nav>
 
     <div class="category-tags">
-        <button class="tag active">#개발/IT</button>
-        <button class="tag">#디자인</button>
-        <button class="tag">#경영/마케팅</button>
-        <button class="tag">#자격증</button>
-        <button class="tag">#취업/진로</button>
-        <button class="tag">#어학</button>
+        <button class="tag active" data-cat="">전체</button>
+        <button class="tag" data-cat="개발/IT">#개발/IT</button>
+        <button class="tag" data-cat="디자인">#디자인</button>
+        <button class="tag" data-cat="경영/마케팅">#경영/마케팅</button>
+        <button class="tag" data-cat="자격증">#자격증</button>
+        <button class="tag" data-cat="취업/진로">#취업/진로</button>
+        <button class="tag" data-cat="어학">#어학</button>
     </div>
 
-    <div class="post-grid">
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-study">스터디</div>
-            <h3 class="card-title">파이썬 기초 스터디원 모집합니다!</h3>
-            <div class="card-tags">
-                <span>#주말오후</span>
-                <span>#개발/IT</span>
-            </div>
-        </article>
+    <!-- 게시글 카드 (JS로 동적 생성) -->
+    <div class="post-grid" id="postGrid"></div>
 
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-event">이벤트</div>
-            <h3 class="card-title">2026 대학생 연합 해커톤 모집</h3>
-            <div class="card-tags">
-                <span>#IT/개발</span>
-                <span>#무박2일</span>
-            </div>
-        </article>
-
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-study">스터디</div>
-            <h3 class="card-title">SQLD 자격증 한 달 완성 같이해요</h3>
-            <div class="card-tags">
-                <span>#온라인</span>
-                <span>#자격증</span>
-            </div>
-        </article>
-
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-study">스터디</div>
-            <h3 class="card-title">리액트 프로젝트 사이드 프로젝트</h3>
-            <div class="card-tags">
-                <span>#프론트엔드</span>
-                <span>#온라인</span>
-            </div>
-        </article>
-
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-event">이벤트</div>
-            <h3 class="card-title">UX/UI 포트폴리오 리뷰 세미나</h3>
-            <div class="card-tags">
-                <span>#디자인</span>
-                <span>#선착순</span>
-            </div>
-        </article>
-
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-study">스터디</div>
-            <h3 class="card-title">토익 900점 목표 매일 인증 스터디</h3>
-            <div class="card-tags">
-                <span>#어학</span>
-                <span>#아침기상</span>
-            </div>
-        </article>
+    <!-- 빈 상태 -->
+    <div class="empty-state" id="emptyState" style="display:none;">
+        검색 결과가 없습니다.
     </div>
 
     <div class="post-footer">
         <div class="pagination">
-            <button class="page-btn">&lt;</button>
-            <span class="page-info">2 / 5</span>
-            <button class="page-btn">&gt;</button>
+            <button class="page-btn" id="prevBtn" disabled>&lt;</button>
+            <span class="page-info" id="pageInfo">1 / 1</span>
+            <button class="page-btn" id="nextBtn" disabled>&gt;</button>
         </div>
         <button class="btn-primary write-btn" onclick="location.href='post-write.html'">게시글 등록하기</button>
     </div>
 </main>
+
+<script>
+    const API_BASE = 'http://localhost:8080';
+    const LIMIT = 6;
+
+    let currentType = 'total';
+    let currentCategory = '';
+    let currentSearch = '';
+    let currentPage = 1;
+    let totalCount = 0;
+    let cursors = [null];
+
+    // API 호출
+    async function fetchPosts(cursor = null) {
+        const params = new URLSearchParams();
+        if (currentSearch) params.append('search', currentSearch);
+        if (currentType !== 'total') params.append('type', currentType);
+        if (currentCategory) params.append('tags', currentCategory);
+        if (cursor) params.append('cursor', cursor);
+        params.append('limit', LIMIT);
+
+        try {
+            const res = await fetch(`${API_BASE}/api/boards?${params.toString()}`);
+            if (!res.ok) throw new Error('조회 실패');
+            return await res.json();
+        } catch (err) {
+            console.error('게시글 조회 오류:', err);
+            return { totalCount: 0, posts: [] };
+        }
+    }
+
+    // 카드 렌더링
+    function renderCards(posts) {
+        const grid = document.getElementById('postGrid');
+        const empty = document.getElementById('emptyState');
+
+        if (!posts || posts.length === 0) {
+            grid.innerHTML = '';
+            empty.style.display = 'flex';
+            return;
+        }
+
+        empty.style.display = 'none';
+        grid.innerHTML = posts.map(post => `
+            <article class="post-card" onclick="location.href='post-detail.html?id=${post.id}'">
+                <div class="card-badge ${post.boardType === 'study' ? 'badge-study' : 'badge-event'}">
+                    ${post.boardType === 'study' ? '스터디' : '이벤트'}
+                </div>
+                <h3 class="card-title">${post.title}</h3>
+                <div class="card-tags">
+                    ${(post.tags || []).map(tag => `<span>#${tag}</span>`).join('')}
+                </div>
+            </article>
+        `).join('');
+    }
+
+    // 페이지네이션
+    function updatePagination() {
+        const totalPages = Math.max(1, Math.ceil(totalCount / LIMIT));
+        document.getElementById('pageInfo').textContent = `${currentPage} / ${totalPages}`;
+        document.getElementById('prevBtn').disabled = currentPage <= 1;
+        document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+    }
+
+    async function loadPage(page) {
+        currentPage = page;
+        const cursor = cursors[page - 1] || null;
+        const data = await fetchPosts(cursor);
+
+        totalCount = data.totalCount;
+        const posts = data.posts || [];
+
+        if (posts.length > 0) {
+            cursors[page] = posts[posts.length - 1].id;
+        }
+
+        renderCards(posts);
+        updatePagination();
+    }
+
+    async function loadFresh() {
+        cursors = [null];
+        currentPage = 1;
+        await loadPage(1);
+    }
+
+    // 탭 클릭
+    document.querySelectorAll('.tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentType = btn.dataset.type;
+            loadFresh();
+        });
+    });
+
+    // 카테고리 클릭
+    document.querySelectorAll('.category-tags .tag').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.category-tags .tag').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentCategory = btn.dataset.cat;
+            loadFresh();
+        });
+    });
+
+    // 검색
+    let searchTimer;
+    document.querySelector('.header-search input').addEventListener('input', (e) => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+            currentSearch = e.target.value.trim();
+            loadFresh();
+        }, 400);
+    });
+
+    // 페이지 이동
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        if (currentPage > 1) loadPage(currentPage - 1);
+    });
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        const totalPages = Math.ceil(totalCount / LIMIT);
+        if (currentPage < totalPages) loadPage(currentPage + 1);
+    });
+
+    // 초기 로드
+    loadFresh();
+</script>
 
 </body>
 </html>
