@@ -1,9 +1,6 @@
 package com.moida.backend.member.controller;
 
-import com.moida.backend.member.dtos.LoginRequest;
-import com.moida.backend.member.dtos.LoginResponse;
-import com.moida.backend.member.dtos.ProfileRequest;
-import com.moida.backend.member.dtos.SignupRequest;
+import com.moida.backend.member.dtos.*;
 import com.moida.backend.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -62,6 +59,23 @@ public class MemberController {
             log.error("프로필 저장 중 에러 발생: {}", e.getMessage());
             response.put("message", "프로필 저장 중 오류 발생");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<ProfileResponse> getProfile() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String memberId = (String) authentication.getPrincipal();
+            ProfileResponse response = memberService.getProfile(memberId);
+            return ResponseEntity.ok(response);
+
+        } catch(Exception e) {
+            log.error("프로필 조회 중 에러 발생: {}", e.getMessage());
+            ProfileResponse errorResponse = ProfileResponse.builder()
+                    .message("프로필 가져오기 실패")
+                    .build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 }

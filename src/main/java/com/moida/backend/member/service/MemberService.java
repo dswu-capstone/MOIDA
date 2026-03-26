@@ -2,11 +2,8 @@ package com.moida.backend.member.service;
 
 import com.moida.backend.jwt.JwtTokenProvider;
 import com.moida.backend.member.Member;
-import com.moida.backend.member.dtos.ProfileRequest;
+import com.moida.backend.member.dtos.*;
 import com.moida.backend.member.repository.MemberRepository;
-import com.moida.backend.member.dtos.LoginRequest;
-import com.moida.backend.member.dtos.LoginResponse;
-import com.moida.backend.member.dtos.SignupRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -76,5 +73,24 @@ public class MemberService {
         memberRepository.save(member);
 
         log.info("사용자 [{}]의 프로필 업데이트 완료", memberId);
+    }
+
+    // 프로필 조회
+    public ProfileResponse getProfile(String memberId) {
+        Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new RuntimeException("해당 아이디의 사용자는 존재하지 않습니다:" + memberId));
+        return ProfileResponse.builder()
+                .message("프로필 가져오기 성공")
+                .nickname(member.getNickname())
+                .major(member.getMajor())
+                .interestCategory(member.getInterestCategory())
+                .goal(member.getGoal())
+                .availableDays(member.getAvailableDays())
+                .availableTime(member.getAvailableTime())
+                .introduce(member.getIntroduce())
+                .level(member.getLevel())
+                .locationType(member.getLocationType())
+                .region(member.getRegion())
+                .build();
     }
 }
