@@ -1,0 +1,294 @@
+/* ── 프로필 레이아웃 ─────────────────────── */
+.profile-wrap {
+  max-width: 720px;
+  margin: 48px auto 80px;
+}
+
+.profile-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 40px;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ── 섹션 ───────────────────────────────── */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.profile-section:last-of-type {
+  border-bottom: none;
+}
+
+.profile-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.label-hint {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 6px;
+}
+
+/* ── 닉네임 표시 ─────────────────────────── */
+.profile-nickname {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  padding: 10px 0;
+}
+
+/* ── 인풋 ───────────────────────────────── */
+.profile-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.profile-input::placeholder {
+  color: var(--text-muted);
+}
+
+.profile-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 107, 44, 0.10);
+}
+
+.profile-textarea {
+  height: 100px;
+  padding: 14px 16px;
+  resize: none;
+  line-height: 1.6;
+}
+
+/* ── 태그 선택 (관심분야 / 지역) ─────────── */
+.tag-select {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag-option {
+  cursor: pointer;
+}
+
+.tag-option input {
+  display: none;
+}
+
+.tag-option span {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--surface);
+  color: var(--text-sub);
+  border: 1px solid var(--border);
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.tag-option span:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.tag-option input:checked + span {
+  background: var(--primary-bg);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* ── 요일 선택 ──────────────────────────── */
+.days-wrap {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.day-option {
+  cursor: pointer;
+}
+
+.day-option input {
+  display: none;
+}
+
+.day-option span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--surface);
+  color: var(--text-sub);
+  border: 1px solid var(--border);
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.day-option span:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.day-option input:checked + span {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ── 시간대 선택 ─────────────────────────── */
+.time-wrap {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.time-option {
+  cursor: pointer;
+}
+
+.time-option input {
+  display: none;
+}
+
+.time-option span {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--surface);
+  color: var(--text-sub);
+  border: 1px solid var(--border);
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.time-option span:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.time-option input:checked + span {
+  background: var(--primary-bg);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* ── 라디오 (수준 / 모임형태) ────────────── */
+.radio-wrap {
+  display: flex;
+  gap: 10px;
+}
+
+.radio-option {
+  cursor: pointer;
+}
+
+.radio-option input {
+  display: none;
+}
+
+.radio-option span {
+  display: inline-block;
+  padding: 8px 24px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--surface);
+  color: var(--text-sub);
+  border: 1px solid var(--border);
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.radio-option span:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.radio-option input:checked + span {
+  background: var(--primary-bg);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* ── 선호 지역 접기/펼치기 ───────────────── */
+.region-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.region-wrap.collapsed {
+  max-height: 54px;
+  overflow: hidden;
+}
+
+.region-toggle {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  padding: 4px 0;
+  font-family: inherit;
+  transition: color 0.15s;
+}
+
+.region-toggle:hover {
+  color: var(--primary);
+}
+
+/* ── 저장 버튼 ──────────────────────────── */
+.profile-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.profile-save-btn {
+  width: 240px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(255, 107, 44, 0.25);
+}
+
+.profile-save-btn:hover {
+  box-shadow: 0 6px 16px rgba(255, 107, 44, 0.4);
+  transform: translateY(-2px);
+}
