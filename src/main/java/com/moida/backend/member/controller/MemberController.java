@@ -61,7 +61,6 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
-
     @GetMapping("/profile")
     public ResponseEntity<ProfileResponse> getProfile() {
         try {
