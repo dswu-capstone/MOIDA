@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOIDA - 게시글 상세</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/post-detail.css" />
+</head>
+<body>
+
+<header class="app-header">
+    <div class="header-container">
+        <a href="post.html" class="header-logo">MOIDA</a>
+        <div class="header-search">
+            <input type="text" placeholder="검색어를 입력하세요" />
+        </div>
+        <div class="header-profile">
+            <div class="profile-avatar">👤</div>
+            <span>내 프로필</span>
+        </div>
+    </div>
+</header>
+
+<main class="container detail-container">
+
+    <div class="top-actions">
+        <button class="btn-back" onclick="location.href='post.html'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            뒤로가기
+        </button>
+    </div>
+
+    <article class="post-content-wrap">
+
+        <div class="detail-header">
+            <span class="detail-badge badge-study">스터디</span>
+            <h1 class="detail-title">
+                파이썬 기초 부수기 스터디
+                <span class="capacity">(3/5)</span>
+            </h1>
+        </div>
+
+        <div class="ai-analysis-box">
+            <div class="ai-box-title">✨ AI 분석 태그</div>
+            <div class="ai-tags">
+                <span>#개발/IT</span>
+                <span>#파이썬</span>
+                <span>#초보환영</span>
+                <span>#주말오후</span>
+            </div>
+        </div>
+
+        <div class="detail-meta">
+            <div class="meta-author">
+                <div class="author-avatar">👤</div>
+                <span class="author-name">작성자: 김코딩</span>
+            </div>
+            <span class="meta-date">2026.03.26</span>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="detail-body">
+            안녕하세요! 파이썬 기초 문법을 같이 공부할 분들을 구합니다.
+            매주 토요일 강남역 인근 카페에서 진행할 예정입니다.
+
+            혼자 공부하기 막막하신 분들, 기초부터 탄탄하게 다지고 싶은 분들 모두 환영합니다!
+            노트북만 지참해 오시면 됩니다. 편하게 신청해주세요 :)
+        </div>
+
+        <hr class="divider" />
+
+        <div class="detail-footer">
+            <button class="btn-primary btn-apply">참여 신청하기</button>
+        </div>
+
+    </article>
+
+</main>
+
+</body>
+</html>
