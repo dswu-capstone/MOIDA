@@ -19,7 +19,7 @@ public class Post {
     private String id;
 
     private String memberId;      // 작성자 아이디
-    private String boardType;     // 게시판 종류 (study, project 등)
+    private String boardType;     // 게시판 종류 (study, event 등)
     private String title;         // 제목
     private String body;          // 본문
     private String category;      // 카테고리 (개발/IT, 디자인 등)

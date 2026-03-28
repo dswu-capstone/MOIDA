@@ -24,91 +24,43 @@
         </a>
     </div>
 </header>
-
 <main class="container">
     <nav class="post-tabs">
         <div class="tab-group">
-            <button class="tab active">전체</button>
-            <button class="tab">스터디</button>
-            <button class="tab">이벤트</button>
+            <button class="tab active" data-type="total">전체</button>
+            <button class="tab" data-type="study">스터디</button>
+            <button class="tab" data-type="event">이벤트</button>
         </div>
         <button class="tab-ai">✨ AI로 게시글 추천받기</button>
     </nav>
 
     <div class="category-tags">
-        <button class="tag active">#개발/IT</button>
-        <button class="tag">#디자인</button>
-        <button class="tag">#경영/마케팅</button>
-        <button class="tag">#자격증</button>
-        <button class="tag">#취업/진로</button>
-        <button class="tag">#어학</button>
+        <button class="tag active" data-cat="">전체</button>
+        <button class="tag" data-cat="개발/IT">#개발/IT</button>
+        <button class="tag" data-cat="디자인">#디자인</button>
+        <button class="tag" data-cat="경영/마케팅">#경영/마케팅</button>
+        <button class="tag" data-cat="자격증">#자격증</button>
+        <button class="tag" data-cat="취업/진로">#취업/진로</button>
+        <button class="tag" data-cat="어학">#어학</button>
     </div>
 
-    <div class="post-grid">
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-study">스터디</div>
-            <h3 class="card-title">파이썬 기초 스터디원 모집합니다!</h3>
-            <div class="card-tags">
-                <span>#주말오후</span>
-                <span>#개발/IT</span>
-            </div>
-        </article>
+    <!-- 게시글 카드 (JS로 동적 생성) -->
+    <div class="post-grid" id="postGrid"></div>
 
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-event">이벤트</div>
-            <h3 class="card-title">2026 대학생 연합 해커톤 모집</h3>
-            <div class="card-tags">
-                <span>#IT/개발</span>
-                <span>#무박2일</span>
-            </div>
-        </article>
-
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-study">스터디</div>
-            <h3 class="card-title">SQLD 자격증 한 달 완성 같이해요</h3>
-            <div class="card-tags">
-                <span>#온라인</span>
-                <span>#자격증</span>
-            </div>
-        </article>
-
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-study">스터디</div>
-            <h3 class="card-title">리액트 프로젝트 사이드 프로젝트</h3>
-            <div class="card-tags">
-                <span>#프론트엔드</span>
-                <span>#온라인</span>
-            </div>
-        </article>
-
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-event">이벤트</div>
-            <h3 class="card-title">UX/UI 포트폴리오 리뷰 세미나</h3>
-            <div class="card-tags">
-                <span>#디자인</span>
-                <span>#선착순</span>
-            </div>
-        </article>
-
-        <article class="post-card" onclick="location.href='post-detail.html'">
-            <div class="card-badge badge-study">스터디</div>
-            <h3 class="card-title">토익 900점 목표 매일 인증 스터디</h3>
-            <div class="card-tags">
-                <span>#어학</span>
-                <span>#아침기상</span>
-            </div>
-        </article>
+    <!-- 빈 상태 -->
+    <div class="empty-state" id="emptyState" style="display:none;">
+        검색 결과가 없습니다.
     </div>
 
     <div class="post-footer">
         <div class="pagination">
-            <button class="page-btn">&lt;</button>
-            <span class="page-info">2 / 5</span>
-            <button class="page-btn">&gt;</button>
+            <button class="page-btn" id="prevBtn" disabled>&lt;</button>
+            <span class="page-info" id="pageInfo">1 / 1</span>
+            <button class="page-btn" id="nextBtn" disabled>&gt;</button>
         </div>
         <button class="btn-primary write-btn" onclick="location.href='post-write.html'">게시글 등록하기</button>
     </div>
 </main>
-
+<script src="js/post.js"></script>
 </body>
 </html>

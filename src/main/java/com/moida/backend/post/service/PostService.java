@@ -26,26 +26,6 @@ public class PostService {
     private final MemberRepository memberRepository;
     private final PostSearchRepository postSearchRepository;
 
-    // 게시글 등록
-//    public PostResponse createPost(String memberId, PostRequest request) {
-//        if (!memberRepository.existsByMemberId(memberId)) {
-//            throw new RuntimeException("존재하지 않는 사용자입니다: " + memberId);
-//        }
-//
-//        Post post = Post.builder()
-//                .memberId(memberId)
-//                .boardType(request.getBoardType())
-//                .title(request.getTitle())
-//                .body(request.getBody())
-//                .category(request.getCategory())
-//                .tags(request.getTags())
-//                .build();
-//
-//        Post savedPost = postRepository.save(post);
-//        log.info("게시글 등록 완료 - 작성자: {}, 제목: {}", memberId, savedPost.getTitle());
-//
-//        return PostResponse.from(savedPost);
-//    }
     public PostResponse createPost(String memberId, PostRequest request) {
         Member member = memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 사용자입니다: " + memberId));
