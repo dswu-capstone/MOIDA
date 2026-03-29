@@ -1,0 +1,177 @@
+/* ── 레이아웃 ───────────────────────────── */
+.detail-container {
+  max-width: 800px;
+  padding-top: 32px;
+  padding-bottom: 80px;
+}
+
+/* ── 뒤로가기 버튼 ──────────────────────── */
+.top-actions {
+  margin-bottom: 24px;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-sub);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  font-family: inherit;
+  transition: color 0.2s;
+}
+
+.btn-back:hover {
+  color: var(--text);
+}
+
+/* ── 제목 및 뱃지 ───────────────────────── */
+.detail-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.detail-badge {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 6px;
+}
+
+/* 스터디 vs 이벤트 색상 구분 */
+.badge-study {
+  background: var(--primary-bg);
+  color: var(--primary);
+}
+
+.badge-event {
+  background: #E8F4FF;
+  color: #007AFF;
+}
+
+.detail-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.capacity {
+  color: var(--primary);
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+/* ── AI 분석 태그 박스 ───────────────────── */
+.ai-analysis-box {
+  background: #FAFAFA;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+}
+
+.ai-box-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.ai-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ai-tags span {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--text-sub);
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* ── 작성자 정보 및 메타 ─────────────────── */
+.detail-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 0 4px;
+}
+
+.meta-author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.author-avatar {
+  width: 28px;
+  height: 28px;
+  background: var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--text-sub);
+}
+
+.author-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.meta-date {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ── 본문 및 구분선 ──────────────────────── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+.detail-body {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text);
+  padding: 40px 4px;
+  min-height: 240px;
+  white-space: pre-wrap; /* HTML에서 엔터 친 부분을 실제 줄바꿈으로 보여줌 */
+}
+
+/* ── 하단 액션 (버튼) ────────────────────── */
+.detail-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+.btn-apply {
+  width: 240px;
+  border-radius: 999px;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(255, 107, 44, 0.2);
+}
+
+.btn-apply:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 107, 44, 0.3);
+}

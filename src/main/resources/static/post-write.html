@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOIDA - 모집글 작성</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/post-write.css" />
+</head>
+<body>
+
+<header class="app-header">
+    <div class="header-container">
+        <a href="post.html" class="header-logo">MOIDA</a>
+        <div class="header-search">
+            <input type="text" placeholder="검색어를 입력하세요" />
+        </div>
+        <div class="header-profile">
+            <div class="profile-avatar">👤</div>
+            <span>내 프로필</span>
+        </div>
+    </div>
+</header>
+
+<main class="container write-container">
+
+    <div class="top-actions">
+        <button class="btn-back" onclick="location.href='post.html'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            뒤로가기
+        </button>
+    </div>
+
+    <h1 class="page-title">모집글 작성하기</h1>
+
+    <form class="write-form" onsubmit="event.preventDefault(); location.href='post.html';">
+
+        <div class="form-section">
+            <label class="section-label">1. 유형 선택</label>
+            <div class="type-group">
+                <label class="type-option">
+                    <input type="radio" name="post_type" value="study" checked />
+                    <div class="type-box">스터디</div>
+                </label>
+                <label class="type-option">
+                    <input type="radio" name="post_type" value="event" />
+                    <div class="type-box">이벤트</div>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <label class="section-label">2. 카테고리 <span class="required">(필수 하나 선택)</span></label>
+            <div class="category-group">
+                <label class="cat-option">
+                    <input type="radio" name="category" value="개발/IT" checked />
+                    <span>#개발/IT</span>
+                </label>
+                <label class="cat-option">
+                    <input type="radio" name="category" value="디자인" />
+                    <span>#디자인</span>
+                </label>
+                <label class="cat-option">
+                    <input type="radio" name="category" value="경영/마케팅" />
+                    <span>#경영/마케팅</span>
+                </label>
+                <label class="cat-option">
+                    <input type="radio" name="category" value="자격증" />
+                    <span>#자격증</span>
+                </label>
+                <label class="cat-option">
+                    <input type="radio" name="category" value="취업/진로" />
+                    <span>#취업/진로</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <label class="section-label" for="post_title">3. 제목</label>
+            <input type="text" id="post_title" class="write-input" placeholder="제목을 입력하세요 (예: 파이썬 코테 2주 완성)" required />
+        </div>
+
+        <div class="form-section">
+            <label class="section-label" for="post_content">
+                4. 상세 내용
+                <span class="sub-label">(이 내용을 기반으로 AI가 태그를 생성합니다)</span>
+            </label>
+            <textarea id="post_content" class="write-textarea" placeholder="모임 장소, 시간, 공부 방법 등을 자유롭게 적어주세요." required></textarea>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="ai-generate-area">
+            <button type="button" class="btn-ai" onclick="generateTags()">
+                ✨ AI로 태그 생성
+            </button>
+
+            <div id="ai_result" class="ai-result-tags">
+                <span class="ai-tag">#파이썬</span>
+                <span class="ai-tag">#코딩테스트</span>
+                <span class="ai-tag">#비전공자환영</span>
+                <span class="ai-desc">(AI가 추출한 태그입니다)</span>
+            </div>
+        </div>
+
+        <div class="submit-area">
+            <button type="submit" class="btn-primary btn-submit">모집글 등록하기</button>
+        </div>
+
+    </form>
+</main>
+
+<script>
+    // AI 버튼 클릭 시 숨겨둔 태그를 보여주는 간단한 스크립트 (프로토타입용)
+    function generateTags() {
+      const resultDiv = document.getElementById('ai_result');
+      const content = document.getElementById('post_content').value;
+
+      if(content.trim() === "") {
+        alert("상세 내용을 먼저 작성해주세요!");
+        return;
+      }
+
+      // 로딩 연출 (0.5초 뒤 등장)
+      setTimeout(() => {
+        resultDiv.classList.add('active');
+      }, 500);
+    }
+</script>
+
+</body>
+</html>

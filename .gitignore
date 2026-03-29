@@ -1,0 +1,51 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+# env 파일 (환경변수)
+.env
+
+# ai-server (Python)
+ai-server/.venv/
+ai-server/**/__pycache__/
+ai-server/**/*.py[cod]
+ai-server/.pytest_cache/
+ai-server/.mypy_cache/
+
+# ai-server local artifacts
+ai-server/recommend_result*.json
+ai-server/_tmp*.py
