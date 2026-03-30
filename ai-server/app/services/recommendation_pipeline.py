@@ -550,8 +550,16 @@ def recommend_posts(request: RecommendRequest) -> RecommendResponse:
     for idx in range(top_k):
         score, post, extracted = scored_rows[idx]
         reason = _reason_with_llm(request.user_input, post, extracted, score)
+#         items.append(
+#             RecommendItem(
+#                 title=post.title,
+#                 keywords=extracted.keywords,
+#                 reason=reason,
+#             )
+#         )
         items.append(
             RecommendItem(
+                id=post.id,
                 title=post.title,
                 keywords=extracted.keywords,
                 reason=reason,
