@@ -1,5 +1,7 @@
 const API_BASE = 'http://localhost:8080';
 const LIMIT = 6;
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
 
 let currentType = 'total';
 let currentCategory = '';
@@ -51,7 +53,15 @@ function renderCards(posts) {
         </article>
     `).join('');
 }
+// 돋보기 버튼 클릭 이벤트 추가
+searchBtn.addEventListener('click', () => {
+    // 현재 입력된 검색어 가져오기
+    const keyword = searchInput.value.trim();
 
+    // TODO: 여기에 기존에 만들어두신 '검색(필터링) 함수'를 호출하세요!
+    // 예시: loadPosts(keyword, currentType, currentCategory);
+    // (현재 post.js에 있는 목록 갱신 함수 이름을 넣어주시면 됩니다)
+});
 // 페이지네이션
 function updatePagination() {
     const totalPages = Math.max(1, Math.ceil(totalCount / LIMIT));
