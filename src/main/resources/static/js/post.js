@@ -122,12 +122,18 @@ document.querySelector('.header-search input').addEventListener('input', (e) => 
     }, 400);
 });
 
-
 // AI 추천 버튼
 document.querySelector('.tab-ai').addEventListener('click', async () => {
-    const token = localStorage.getItem('accessToken');
+    // 로딩 모달 표시
+    let loadingHtml = '<div class="recommend-overlay" id="recommendOverlay">';
+    loadingHtml += '<div class="recommend-modal">';
+    loadingHtml += '<div class="loading-state">';
+    loadingHtml += '<div class="loading-spinner"></div>';
+    loadingHtml += '<p>AI가 맞춤 게시글을 찾고 있습니다...</p>';
+    loadingHtml += '</div>';
+    loadingHtml += '</div></div>';
+    document.body.insertAdjacentHTML('beforeend', loadingHtml);
 
-    // 사용자 정보 (로그인 안 했으면 기본값)
     let userInput = {
         major: "",
         interestCategory: [],
@@ -140,8 +146,6 @@ document.querySelector('.tab-ai').addEventListener('click', async () => {
         region: ""
     };
 
-    // TODO: 로그인 상태면 실제 사용자 프로필 가져오기
-
     try {
         const res = await fetch(`${API_BASE}/api/boards/recommend`, {
             method: 'POST',
@@ -149,11 +153,13 @@ document.querySelector('.tab-ai').addEventListener('click', async () => {
             body: JSON.stringify(userInput)
         });
 
+        // 로딩 모달 제거
+        document.getElementById('recommendOverlay').remove();
+
         if (!res.ok) throw new Error('추천 실패');
         const data = await res.json();
 
         if (data.data && data.data.length > 0) {
-            // 추천 결과를 모달이나 카드로 표시
             let html = '<div class="recommend-overlay" onclick="this.remove()">';
             html += '<div class="recommend-modal" onclick="event.stopPropagation()">';
             html += '<h2 class="recommend-title">✨ AI 추천 게시글</h2>';
@@ -172,12 +178,15 @@ document.querySelector('.tab-ai').addEventListener('click', async () => {
 
             html += '<button class="recommend-close" onclick="this.parentElement.parentElement.remove()">닫기</button>';
             html += '</div></div>';
-
             document.body.insertAdjacentHTML('beforeend', html);
         } else {
             alert('추천할 게시글이 없습니다.');
         }
     } catch (err) {
+        // 로딩 모달 제거
+        const overlay = document.getElementById('recommendOverlay');
+        if (overlay) overlay.remove();
+
         console.error('AI 추천 오류:', err);
         alert('AI 추천 서비스에 연결할 수 없습니다.');
     }
