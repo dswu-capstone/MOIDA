@@ -47,6 +47,7 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/", "index.html", "signup.html", "post.html", "post-detail.html", "post-write.html", "profile.html").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/boards/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/boards/recommend").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .anyRequest().authenticated() // 이 외 모든 요청은 토큰 인증 필요
                 )

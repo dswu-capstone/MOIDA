@@ -220,7 +220,8 @@ def _extract_post_profile_llm(post: PostInput) -> ExtractedPostProfile:
         return _fallback_post_profile(post)
 
 
-def _fallback_embedding(feature_text: str, dim: int = 256) -> np.ndarray:
+# def _fallback_embedding(feature_text: str, dim: int = 256) -> np.ndarray:
+def _fallback_embedding(feature_text: str, dim: int = 1536) -> np.ndarray:
     vector = np.zeros(dim, dtype=float)
     if not feature_text.strip():
         return vector
@@ -530,6 +531,11 @@ def recommend_posts(request: RecommendRequest) -> RecommendResponse:
     scored_rows: List[Tuple[float, PostInput, ExtractedPostProfile]] = []
     for post, extracted in filtered_rows:
         raw_vector = np.array(post.embedding, dtype=float)
+
+        # 차원이 다르면 건너뛰기
+        if raw_vector.shape[0] != user_vector.shape[0]:
+            continue
+
         norm = float(np.linalg.norm(raw_vector))
         post_vector = raw_vector if norm == 0.0 else raw_vector / norm
 

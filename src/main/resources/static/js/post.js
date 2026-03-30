@@ -122,6 +122,67 @@ document.querySelector('.header-search input').addEventListener('input', (e) => 
     }, 400);
 });
 
+
+// AI 추천 버튼
+document.querySelector('.tab-ai').addEventListener('click', async () => {
+    const token = localStorage.getItem('accessToken');
+
+    // 사용자 정보 (로그인 안 했으면 기본값)
+    let userInput = {
+        major: "",
+        interestCategory: [],
+        goal: "",
+        availableDays: [],
+        availableTime: [],
+        introduce: "",
+        level: "",
+        locationType: "",
+        region: ""
+    };
+
+    // TODO: 로그인 상태면 실제 사용자 프로필 가져오기
+
+    try {
+        const res = await fetch(`${API_BASE}/api/boards/recommend`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userInput)
+        });
+
+        if (!res.ok) throw new Error('추천 실패');
+        const data = await res.json();
+
+        if (data.data && data.data.length > 0) {
+            // 추천 결과를 모달이나 카드로 표시
+            let html = '<div class="recommend-overlay" onclick="this.remove()">';
+            html += '<div class="recommend-modal" onclick="event.stopPropagation()">';
+            html += '<h2 class="recommend-title">✨ AI 추천 게시글</h2>';
+
+            data.data.forEach(item => {
+                html += `
+                    <div class="recommend-card">
+                        <h3>${item.title}</h3>
+                        <div class="recommend-keywords">
+                            ${item.keywords.map(k => `<span>#${k}</span>`).join('')}
+                        </div>
+                        <p class="recommend-reason">${item.reason}</p>
+                    </div>
+                `;
+            });
+
+            html += '<button class="recommend-close" onclick="this.parentElement.parentElement.remove()">닫기</button>';
+            html += '</div></div>';
+
+            document.body.insertAdjacentHTML('beforeend', html);
+        } else {
+            alert('추천할 게시글이 없습니다.');
+        }
+    } catch (err) {
+        console.error('AI 추천 오류:', err);
+        alert('AI 추천 서비스에 연결할 수 없습니다.');
+    }
+});
+
 // 페이지 이동
 document.getElementById('prevBtn').addEventListener('click', () => {
     if (currentPage > 1) loadPage(currentPage - 1);
