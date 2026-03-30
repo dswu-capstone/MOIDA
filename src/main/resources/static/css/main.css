@@ -1,0 +1,187 @@
+/* ── 메인 전용 헤더 레이아웃 조정 ──────────────── */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.header-auth {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-sub);
+  transition: color 0.2s;
+}
+
+.btn-text:hover {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.btn-sm {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 14px;
+  border-radius: 999px;
+}
+
+/* ── 메인 래퍼 ──────────────────────────────── */
+.main-wrapper {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px 100px;
+}
+
+/* ── 히어로 섹션 (중앙 로고 부분) ────────────── */
+.hero-section {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 80px;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.hero-logo {
+  font-size: 96px;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 24px;
+  text-shadow: 0 4px 12px rgba(255, 107, 44, 0.15);
+}
+
+.hero-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--text-sub);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.hero-desc b {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* ── 히어로 버튼 ────────────────────────────── */
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.hero-btn {
+  width: auto;
+  min-width: 180px;
+  height: 54px;
+  font-size: 16px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-outline:hover {
+  border-color: var(--text);
+  background: var(--surface);
+}
+
+/* ── 특징(Features) 섹션 ────────────────────── */
+.features-section {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  max-width: 1040px;
+  margin: 0 auto;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  width: 300px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+  border-color: #ffe0d1;
+}
+
+.feature-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.feature-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.feature-desc {
+  font-size: 14px;
+  color: var(--text-sub);
+  line-height: 1.5;
+}
+
+/* ── 애니메이션 ────────────────────────────── */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

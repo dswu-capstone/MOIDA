@@ -1,47 +1,64 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MOIDA - 로그인</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/common.css" />
-  <link rel="stylesheet" href="css/auth.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOIDA - 스터디·이벤트 매칭 플랫폼</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
 
-<div class="auth-bg">
-  <div class="auth-card">
+<header class="app-header">
+    <div class="header-container main-header">
+        <div class="header-left">
+            <a href="index.html" class="header-logo">MOIDA</a>
+            <nav class="header-nav">
+                <a href="post.html" class="nav-link">게시글 둘러보기</a>
+            </nav>
+        </div>
 
-    <div class="auth-logo">MOIDA</div>
-    <p class="auth-sub">스터디 · 이벤트 매칭 플랫폼</p>
-
-    <div class="auth-form">
-      <div class="field">
-        <label class="field-label" for="username">아이디</label>
-        <input class="field-input" id="username" type="text" placeholder="아이디를 입력하세요" />
-      </div>
-
-      <div class="field">
-        <label class="field-label" for="password">비밀번호</label>
-        <input class="field-input" id="password" type="password" placeholder="비밀번호를 입력하세요" />
-      </div>
-
-      <p class="error-msg" id="errorMsg"></p>
-
-      <button class="btn-primary" type="button" onclick="handleLogin()">로그인</button>
+        <div class="header-auth">
+            <a href="login.html" class="btn-text">로그인</a>
+            <a href="signup.html" class="btn-primary btn-sm">회원가입</a>
+        </div>
     </div>
+</header>
 
-    <hr class="auth-divider" />
+<main class="main-wrapper">
+    <section class="hero-section">
+        <h1 class="hero-logo">MOIDA</h1>
+        <h2 class="hero-title">나에게 딱 맞는 스터디와 이벤트를 한곳에서</h2>
+        <p class="hero-desc">
+            수많은 모집글 사이에서 더 이상 헤매지 마세요.<br>
+            당신의 <b>관심사, 목표, 일정</b>을 AI가 분석하여 가장 완벽한 성장의 기회를 추천해 드립니다.
+        </p>
 
-    <p class="auth-footer">
-      아직 회원이 아니신가요? <a href="signup.html">회원가입</a>
-    </p>
+        <div class="hero-actions">
+            <button class="btn-primary hero-btn" onclick="location.href='post.html'">게시글 탐색하기</button>
+            <button class="btn-outline hero-btn" onclick="location.href='login.html'">지금 시작하기</button>
+        </div>
+    </section>
 
-  </div>
-</div>
+    <section class="features-section">
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3 class="feature-title">맞춤형 매칭</h3>
+            <p class="feature-desc">나의 수준과 목표에 딱 맞는<br>스터디와 이벤트를 찾아보세요.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">✨</div>
+            <h3 class="feature-title">AI 태그 분석</h3>
+            <p class="feature-desc">AI가 모집글의 분위기와 진행 방식을<br>분석하여 미리 알려드립니다.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⏱️</div>
+            <h3 class="feature-title">일정 기반 추천</h3>
+            <p class="feature-desc">서로 가능한 시간이 맞는<br>사람들과 효율적으로 모이세요.</p>
+        </div>
+    </section>
+</main>
 
-<script src="js/api.js"></script>
-<script src="js/auth.js"></script>
 </body>
 </html>
