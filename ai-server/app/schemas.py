@@ -73,6 +73,7 @@ class RecommendRequest(BaseModel):
 
 
 class RecommendItem(BaseModel):
+    id: Optional[str] = None
     title: str
     keywords: List[str] = Field(default_factory=list)
     reason: str

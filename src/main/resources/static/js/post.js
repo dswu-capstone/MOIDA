@@ -166,7 +166,7 @@ document.querySelector('.tab-ai').addEventListener('click', async () => {
 
             data.data.forEach(item => {
                 html += `
-                    <div class="recommend-card">
+                    <div class="recommend-card" onclick="location.href='post-detail.html?id=${item.id}'" style="cursor:pointer;">
                         <h3>${item.title}</h3>
                         <div class="recommend-keywords">
                             ${item.keywords.map(k => `<span>#${k}</span>`).join('')}
