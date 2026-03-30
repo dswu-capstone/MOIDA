@@ -32,8 +32,14 @@ public class PostSearchRepository {
         }
 
         // 태그 필터 (선택된 태그를 모두 포함하는 게시글)
+//        if (tags != null && !tags.isEmpty()) {
+//            query.addCriteria(Criteria.where("tags").all(tags));
+//        }
         if (tags != null && !tags.isEmpty()) {
-            query.addCriteria(Criteria.where("tags").all(tags));
+            query.addCriteria(new Criteria().orOperator(
+                    Criteria.where("tags").all(tags),
+                    Criteria.where("category").in(tags)
+            ));
         }
 
         // 커서 기반 페이지네이션
@@ -62,8 +68,15 @@ public class PostSearchRepository {
             query.addCriteria(Criteria.where("boardType").is(type));
         }
 
+//        if (tags != null && !tags.isEmpty()) {
+//            query.addCriteria(Criteria.where("tags").all(tags));
+//        }
+        // tags 또는 category에서 검색
         if (tags != null && !tags.isEmpty()) {
-            query.addCriteria(Criteria.where("tags").all(tags));
+            query.addCriteria(new Criteria().orOperator(
+                    Criteria.where("tags").all(tags),
+                    Criteria.where("category").in(tags)
+            ));
         }
 
         return mongoTemplate.count(query, Post.class);
