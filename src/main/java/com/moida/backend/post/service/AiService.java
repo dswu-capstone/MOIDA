@@ -54,4 +54,24 @@ public class AiService {
             return null;
         }
     }
+
+    // AI 태그 생성
+    public Map<String, Object> generateTags(Map<String, Object> postData) {
+        String url = aiServerUrl + "/ai/recommend/tags";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Map<String, Object> requestBody = Map.of("post", postData);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
+
+        try {
+            ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, entity, Map.class);
+            log.info("AI 태그 생성 성공");
+            return response.getBody();
+        } catch (Exception e) {
+            log.error("AI 태그 생성 실패: {}", e.getMessage());
+            return null;
+        }
+    }
 }

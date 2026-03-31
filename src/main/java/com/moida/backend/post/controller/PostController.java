@@ -79,4 +79,19 @@ public class PostController {
 
         return ResponseEntity.ok(result);
     }
+
+    // AI 태그 생성
+    @PostMapping("/tags")
+    public ResponseEntity<Map<String, Object>> generateTags(@RequestBody Map<String, Object> postData) {
+        Map<String, Object> result = aiService.generateTags(postData);
+
+        if (result == null) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("message", "AI 태그 생성 실패");
+            error.put("tags", new ArrayList<>());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
+
+        return ResponseEntity.ok(result);
+    }
 }
