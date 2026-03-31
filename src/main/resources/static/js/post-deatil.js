@@ -47,6 +47,13 @@ async function loadPostDetail() {
         // 본문
         document.getElementById('detailBody').textContent = data.body;
 
+        // 오픈채팅 링크 저장
+        if (data.openChatLink) {
+            document.getElementById('applyBtn').dataset.link = data.openChatLink;
+        } else {
+            document.getElementById('applyBtn').dataset.link = '';
+        }
+
         // 페이지 타이틀
         document.title = `MOIDA - ${data.title}`;
 
@@ -55,6 +62,21 @@ async function loadPostDetail() {
         document.getElementById('detailTitle').textContent = '게시글을 불러올 수 없습니다.';
         document.getElementById('detailBody').textContent = '다시 시도해주세요.';
     }
+}
+
+function applyPost() {
+    const link = document.getElementById('applyBtn').dataset.link;
+    const chatBox = document.getElementById('openChatBox');
+    const chatLink = document.getElementById('openChatLink');
+
+    if (!link) {
+        alert('작성자가 오픈채팅 링크를 등록하지 않았습니다.');
+        return;
+    }
+
+    chatBox.style.display = 'block';
+    chatLink.href = link;
+    chatLink.textContent = link;
 }
 
 loadPostDetail();

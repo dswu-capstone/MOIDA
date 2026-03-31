@@ -11,7 +11,6 @@ async function generateTags() {
     }
 
     const resultDiv = document.getElementById('ai_result');
-    // 로딩 표시
     resultDiv.innerHTML = '<span class="ai-desc">⏳ AI가 태그를 생성하고 있습니다...</span>';
     resultDiv.classList.add('active');
 
@@ -43,7 +42,7 @@ async function generateTags() {
     }
 }
 
-//게시글 등록
+// 게시글 등록
 async function submitPost() {
     const token = localStorage.getItem('accessToken');
 
@@ -83,6 +82,8 @@ async function submitPost() {
     const submitBtn = document.querySelector('.btn-submit');
     submitBtn.disabled = true;
 
+    const openChatLink = document.getElementById('open_chat').value.trim();
+
     try {
         const res = await fetch('http://localhost:8080/api/boards', {
             method: 'POST',
@@ -95,7 +96,8 @@ async function submitPost() {
                 title: title,
                 body: body,
                 category: category,
-                tags: tags
+                tags: tags,
+                openChatLink: openChatLink
             })
         });
 

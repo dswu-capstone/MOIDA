@@ -15,4 +15,5 @@ public class PostRequest {
     private String body;          // 본문
     private String category;      // "개발/IT" 등
     private List<String> tags;    // ["웹개발", "앱개발"]
+    private String openChatLink; // 오픈채팅링크
 }
