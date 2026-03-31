@@ -1,4 +1,28 @@
 /* ── 프로필 레이아웃 ─────────────────────── */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.btn-logout {
+  background: none;
+  border: none;
+  color: var(--text-muted, #888);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: color 0.2s;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.btn-logout:hover {
+  color: var(--primary, #ff6b2c);
+  text-decoration: underline;
+}
+
 .profile-wrap {
   max-width: 720px;
   margin: 48px auto 80px;
