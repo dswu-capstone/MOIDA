@@ -1,5 +1,7 @@
 const API_BASE = 'http://localhost:8080';
 const LIMIT = 6;
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
 
 let currentType = 'total';
 let currentCategory = '';
@@ -51,7 +53,15 @@ function renderCards(posts) {
         </article>
     `).join('');
 }
+// 돋보기 버튼 클릭 이벤트 추가
+searchBtn.addEventListener('click', () => {
+    // 현재 입력된 검색어 가져오기
+    const keyword = searchInput.value.trim();
 
+    // TODO: 여기에 기존에 만들어두신 '검색(필터링) 함수'를 호출하세요!
+    // 예시: loadPosts(keyword, currentType, currentCategory);
+    // (현재 post.js에 있는 목록 갱신 함수 이름을 넣어주시면 됩니다)
+});
 // 페이지네이션
 function updatePagination() {
     const totalPages = Math.max(1, Math.ceil(totalCount / LIMIT));
@@ -110,6 +120,76 @@ document.querySelector('.header-search input').addEventListener('input', (e) => 
         currentSearch = e.target.value.trim();
         loadFresh();
     }, 400);
+});
+
+// AI 추천 버튼
+document.querySelector('.tab-ai').addEventListener('click', async () => {
+    // 로딩 모달 표시
+    let loadingHtml = '<div class="recommend-overlay" id="recommendOverlay">';
+    loadingHtml += '<div class="recommend-modal">';
+    loadingHtml += '<div class="loading-state">';
+    loadingHtml += '<div class="loading-spinner"></div>';
+    loadingHtml += '<p>AI가 맞춤 게시글을 찾고 있습니다...</p>';
+    loadingHtml += '</div>';
+    loadingHtml += '</div></div>';
+    document.body.insertAdjacentHTML('beforeend', loadingHtml);
+
+    let userInput = {
+        major: "",
+        interestCategory: [],
+        goal: "",
+        availableDays: [],
+        availableTime: [],
+        introduce: "",
+        level: "",
+        locationType: "",
+        region: ""
+    };
+
+    try {
+        const res = await fetch(`${API_BASE}/api/boards/recommend`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userInput)
+        });
+
+        // 로딩 모달 제거
+        document.getElementById('recommendOverlay').remove();
+
+        if (!res.ok) throw new Error('추천 실패');
+        const data = await res.json();
+
+        if (data.data && data.data.length > 0) {
+            let html = '<div class="recommend-overlay" onclick="this.remove()">';
+            html += '<div class="recommend-modal" onclick="event.stopPropagation()">';
+            html += '<h2 class="recommend-title">✨ AI 추천 게시글</h2>';
+
+            data.data.forEach(item => {
+                html += `
+                    <div class="recommend-card" onclick="location.href='post-detail.html?id=${item.id}'" style="cursor:pointer;">
+                        <h3>${item.title}</h3>
+                        <div class="recommend-keywords">
+                            ${item.keywords.map(k => `<span>#${k}</span>`).join('')}
+                        </div>
+                        <p class="recommend-reason">${item.reason}</p>
+                    </div>
+                `;
+            });
+
+            html += '<button class="recommend-close" onclick="this.parentElement.parentElement.remove()">닫기</button>';
+            html += '</div></div>';
+            document.body.insertAdjacentHTML('beforeend', html);
+        } else {
+            alert('추천할 게시글이 없습니다.');
+        }
+    } catch (err) {
+        // 로딩 모달 제거
+        const overlay = document.getElementById('recommendOverlay');
+        if (overlay) overlay.remove();
+
+        console.error('AI 추천 오류:', err);
+        alert('AI 추천 서비스에 연결할 수 없습니다.');
+    }
 });
 
 // 페이지 이동

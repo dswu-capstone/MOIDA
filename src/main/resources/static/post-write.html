@@ -15,6 +15,12 @@
         <a href="post.html" class="header-logo">MOIDA</a>
         <div class="header-search">
             <input type="text" placeholder="검색어를 입력하세요" />
+            <button type="button" class="btn-search" id="searchBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
         </div>
         <div class="header-profile">
             <div class="profile-avatar">👤</div>
@@ -37,7 +43,7 @@
 
     <h1 class="page-title">모집글 작성하기</h1>
 
-    <form class="write-form" onsubmit="event.preventDefault(); location.href='post.html';">
+    <form class="write-form" onsubmit="event.preventDefault(); submitPost();">
 
         <div class="form-section">
             <label class="section-label">1. 유형 선택</label>
@@ -92,6 +98,14 @@
             <textarea id="post_content" class="write-textarea" placeholder="모임 장소, 시간, 공부 방법 등을 자유롭게 적어주세요." required></textarea>
         </div>
 
+        <div class="form-section">
+            <label class="section-label" for="open_chat">
+                5. 오픈채팅 링크
+                <span class="sub-label">(참여 신청 시 이 링크가 표시됩니다)</span>
+            </label>
+            <input type="text" id="open_chat" class="write-input" placeholder="https://open.kakao.com/o/..." />
+        </div>
+
         <hr class="divider" />
 
         <div class="ai-generate-area">
@@ -100,10 +114,6 @@
             </button>
 
             <div id="ai_result" class="ai-result-tags">
-                <span class="ai-tag">#파이썬</span>
-                <span class="ai-tag">#코딩테스트</span>
-                <span class="ai-tag">#비전공자환영</span>
-                <span class="ai-desc">(AI가 추출한 태그입니다)</span>
             </div>
         </div>
 
@@ -113,24 +123,6 @@
 
     </form>
 </main>
-
-<script>
-    // AI 버튼 클릭 시 숨겨둔 태그를 보여주는 간단한 스크립트 (프로토타입용)
-    function generateTags() {
-      const resultDiv = document.getElementById('ai_result');
-      const content = document.getElementById('post_content').value;
-
-      if(content.trim() === "") {
-        alert("상세 내용을 먼저 작성해주세요!");
-        return;
-      }
-
-      // 로딩 연출 (0.5초 뒤 등장)
-      setTimeout(() => {
-        resultDiv.classList.add('active');
-      }, 500);
-    }
-</script>
-
+<script src="js/post-write.js"></script>
 </body>
 </html>

@@ -66,6 +66,15 @@ class PostPreprocessResponse(BaseModel):
     data: PostPreprocessResult
 
 
+class TagGenerateRequest(BaseModel):
+    post: PostInput
+
+
+class TagGenerateResponse(BaseModel):
+    message: str
+    tags: List[str] = Field(default_factory=list)
+
+
 class RecommendRequest(BaseModel):
     user_input: UserInput
     posts: List[PostInput] = Field(default_factory=list)
@@ -73,6 +82,7 @@ class RecommendRequest(BaseModel):
 
 
 class RecommendItem(BaseModel):
+    id: Optional[str] = None
     title: str
     keywords: List[str] = Field(default_factory=list)
     reason: str

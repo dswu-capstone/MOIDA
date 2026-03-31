@@ -11,6 +11,7 @@ from app.schemas import (
     PostPreprocessResponse,
     PostPreprocessResult,
     PostProfile,
+    TagGenerateResponse,
     RecommendItem,
     RecommendRequest,
     RecommendResponse,
@@ -20,6 +21,7 @@ from app.utils import OPENAI_API_KEY, OPENAI_EMBEDDING_MODEL, OPENAI_KEYWORD_MOD
 
 
 OPENAI_REQUEST_TIMEOUT_SECONDS = 20
+TAG_GENERATE_COUNT = 3
 
 
 @dataclass
@@ -220,7 +222,44 @@ def _extract_post_profile_llm(post: PostInput) -> ExtractedPostProfile:
         return _fallback_post_profile(post)
 
 
-def _fallback_embedding(feature_text: str, dim: int = 256) -> np.ndarray:
+def _extract_tags_llm(post: PostInput) -> List[str]:
+    client = _get_openai_client()
+    if client is None:
+        return []
+
+    natural_text = f"제목: {post.title}\n본문: {post.body}\n카테고리: {post.category or ''}"
+    prompt = (
+        "다음 모집 게시글에서 화면에 보여줄 태그를 3개만 추출하세요. JSON 한 줄만 출력하세요.\n"
+        "형식: {\"tags\":[\"...\",\"...\",\"...\"]}\n"
+        "규칙:\n"
+        f"- 정확히 최대 {TAG_GENERATE_COUNT}개\n"
+        "- 너무 일반적인 단어(예: 모집, 스터디, 참여) 지양\n"
+        "- 짧은 키워드/명사형 중심\n"
+        "- 중복/유사어 중복 금지\n"
+        "- 언어는 게시글 언어를 따름\n"
+        f"\n게시글:\n{natural_text}"
+    )
+
+    try:
+        completion = client.chat.completions.create(
+            model=OPENAI_KEYWORD_MODEL,
+            temperature=0.1,
+            messages=[{"role": "user", "content": prompt}],
+            timeout=OPENAI_REQUEST_TIMEOUT_SECONDS,
+        )
+        content = (completion.choices[0].message.content or "").strip()
+        content = re.sub(r"^```(?:json)?\s*", "", content)
+        content = re.sub(r"\s*```$", "", content)
+        data = json.loads(content)
+        tags_raw = data.get("tags", []) if isinstance(data, dict) else []
+        tags = _norm_list([str(item) for item in tags_raw])
+        return tags[:TAG_GENERATE_COUNT]
+    except Exception:
+        return []
+
+
+# def _fallback_embedding(feature_text: str, dim: int = 256) -> np.ndarray:
+def _fallback_embedding(feature_text: str, dim: int = 1536) -> np.ndarray:
     vector = np.zeros(dim, dtype=float)
     if not feature_text.strip():
         return vector
@@ -498,6 +537,16 @@ def preprocess_post(post: PostInput) -> PostPreprocessResponse:
     return PostPreprocessResponse(message="게시글 전처리 성공", data=result)
 
 
+def generate_tags(post: PostInput) -> TagGenerateResponse:
+    tags = _extract_tags_llm(post)
+    if not tags:
+        extracted = _extract_post_profile_llm(post)
+        tags = extracted.keywords[:TAG_GENERATE_COUNT]
+    if not tags:
+        tags = _fallback_keywords(f"{post.title} {post.body} {' '.join(post.tags)}")[:TAG_GENERATE_COUNT]
+    return TagGenerateResponse(message="AI 태그 생성 성공", tags=tags)
+
+
 def recommend_posts(request: RecommendRequest) -> RecommendResponse:
     if not request.posts:
         return RecommendResponse(message="추천 게시글 조회 성공", totalCount=0, data=[])
@@ -530,6 +579,11 @@ def recommend_posts(request: RecommendRequest) -> RecommendResponse:
     scored_rows: List[Tuple[float, PostInput, ExtractedPostProfile]] = []
     for post, extracted in filtered_rows:
         raw_vector = np.array(post.embedding, dtype=float)
+
+        # 차원이 다르면 건너뛰기
+        if raw_vector.shape[0] != user_vector.shape[0]:
+            continue
+
         norm = float(np.linalg.norm(raw_vector))
         post_vector = raw_vector if norm == 0.0 else raw_vector / norm
 
@@ -544,8 +598,16 @@ def recommend_posts(request: RecommendRequest) -> RecommendResponse:
     for idx in range(top_k):
         score, post, extracted = scored_rows[idx]
         reason = _reason_with_llm(request.user_input, post, extracted, score)
+#         items.append(
+#             RecommendItem(
+#                 title=post.title,
+#                 keywords=extracted.keywords,
+#                 reason=reason,
+#             )
+#         )
         items.append(
             RecommendItem(
+                id=post.id,
                 title=post.title,
                 keywords=extracted.keywords,
                 reason=reason,
