@@ -25,6 +25,8 @@ public class Post {
     private String body;          // 본문
     private String category;      // 카테고리 (개발/IT, 디자인 등)
     private List<String> tags;    // AI 생성 태그
+    private String openChatLink;  // 오픈채팅 링크
+
 
     // AI
     private List<String> keywords;        // AI 추출 키워드
@@ -40,19 +42,26 @@ public class Post {
 
 //    @Builder
 //    public Post(String memberId, String boardType, String title,
-//                String body, String category, List<String> tags) {
+//                String body, String category, List<String> tags,
+//                List<String> keywords, String semanticText,
+//                List<Double> embedding, Map<String, Object> profile) {
 //        this.memberId = memberId;
 //        this.boardType = boardType;
 //        this.title = title;
 //        this.body = body;
 //        this.category = category;
 //        this.tags = tags;
+//        this.keywords = keywords;
+//        this.semanticText = semanticText;
+//        this.embedding = embedding;
+//        this.profile = profile;
 //    }
     @Builder
     public Post(String memberId, String boardType, String title,
                 String body, String category, List<String> tags,
                 List<String> keywords, String semanticText,
-                List<Double> embedding, Map<String, Object> profile) {
+                List<Double> embedding, Map<String, Object> profile,
+                String openChatLink) {
         this.memberId = memberId;
         this.boardType = boardType;
         this.title = title;
@@ -63,5 +72,6 @@ public class Post {
         this.semanticText = semanticText;
         this.embedding = embedding;
         this.profile = profile;
+        this.openChatLink = openChatLink;
     }
 }

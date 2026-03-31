@@ -30,25 +30,6 @@ public class PostService {
     private final PostSearchRepository postSearchRepository;
     private final AiService aiService;
 
-//    public PostResponse createPost(String memberId, PostRequest request) {
-//        Member member = memberRepository.findByMemberId(memberId)
-//                .orElseThrow(() -> new RuntimeException("존재하지 않는 사용자입니다: " + memberId));
-//
-//        Post post = Post.builder()
-//                .memberId(memberId)
-//                .boardType(request.getBoardType())
-//                .title(request.getTitle())
-//                .body(request.getBody())
-//                .category(request.getCategory())
-//                .tags(request.getTags())
-//                .build();
-//
-//        Post savedPost = postRepository.save(post);
-//        log.info("게시글 등록 완료 - 작성자: {}, 제목: {}", memberId, savedPost.getTitle());
-//
-//        return PostResponse.from(savedPost, member.getNickname());
-//    }
-
     // AI연동
     // 게시글 등록 (AI 전처리 포함)
     public PostResponse createPost(String memberId, PostRequest request) {
@@ -87,7 +68,8 @@ public class PostService {
                 if (!aiKeywords.isEmpty()) {
                     request = new PostRequest(
                             request.getBoardType(), request.getTitle(),
-                            request.getBody(), request.getCategory(), aiKeywords
+                            request.getBody(), request.getCategory(), aiKeywords,
+                            request.getOpenChatLink()
                     );
                 }
             }
@@ -100,6 +82,7 @@ public class PostService {
                 .body(request.getBody())
                 .category(request.getCategory())
                 .tags(request.getTags())
+                .openChatLink(request.getOpenChatLink())
                 .keywords(keywords)
                 .semanticText(semanticText)
                 .embedding(embedding)

@@ -175,3 +175,32 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(255, 107, 44, 0.3);
 }
+
+/* ── 오픈채팅 링크 ───────────────────────── */
+
+.open-chat-box {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: #FFF0E8;
+    border-radius: 12px;
+    border: 1px solid #FFD4BC;
+}
+
+.open-chat-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #6B6B65;
+    margin-bottom: 8px;
+}
+
+.open-chat-link {
+    font-size: 14px;
+    color: #FF6B2C;
+    font-weight: 700;
+    word-break: break-all;
+    text-decoration: none;
+}
+
+.open-chat-link:hover {
+    text-decoration: underline;
+}
