@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  moida-spring:
+    container_name: moida-spring-container
+    image: eunkyoung03/moida-spring:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=${MONGO_URI}
+    restart: always
+
+  moida-ai:
+    container_name: moida-ai-container
+    image: eunkyoung03/moida-ai:latest
+    ports:
+      - "8000:8000"
+    restart: always
