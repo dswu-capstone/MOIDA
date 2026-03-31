@@ -39,6 +39,39 @@ jobs:
           docker build -t ${{ secrets.DOCKER_USERNAME }}/moida-ai:latest ./ai-server
           docker push ${{ secrets.DOCKER_USERNAME }}/moida-ai:latest
 
+#      - name: 6. EC2에 배포 및 실행
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.EC2_HOST }}
+#          username: ${{ secrets.EC2_USERNAME }}
+#          key: ${{ secrets.EC2_SSH_KEY }}
+#          script: |
+#            # 서버에 도커 컴포즈 파일 생성
+#            cat << 'EOF' > docker-compose.yml
+#            version: '3.8'
+#            services:
+#              moida-spring:
+#                container_name: moida-spring-container
+#                image: ${{ secrets.DOCKER_USERNAME }}/moida-spring:latest
+#                ports:
+#                  - "8080:8080"
+#                environment:
+#                  - SPRING_DATA_MONGODB_URI=${{ secrets.MONGO_URI }}
+#                  - JWT_SECRET=${{ secrets.JWT_SECRET }}
+#                restart: always
+#
+#              moida-ai:
+#                container_name: moida-ai-container
+#                image: ${{ secrets.DOCKER_USERNAME }}/moida-ai:latest
+#                ports:
+#                  - "8000:8000"
+#                restart: always
+#            EOF
+#
+#            # 최신 이미지를 다운로드하고 컨테이너 재시작
+#            docker-compose pull
+#            docker-compose down
+#            docker-compose up -d
       - name: 6. EC2에 배포 및 실행
         uses: appleboy/ssh-action@master
         with:
@@ -46,7 +79,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # 서버에 도커 컴포즈 파일 생성
+            # 서버에 도커 컴포즈 파일 생성 (모든 환경변수 주입!)
             cat << 'EOF' > docker-compose.yml
             version: '3.8'
             services:
@@ -58,6 +91,8 @@ jobs:
                 environment:
                   - SPRING_DATA_MONGODB_URI=${{ secrets.MONGO_URI }}
                   - JWT_SECRET=${{ secrets.JWT_SECRET }}
+                  - JWT_ACCESS_EXPIRATION=${{ secrets.JWT_ACCESS_EXPIRATION }}
+                  - JWT_REFRESH_EXPIRATION=${{ secrets.JWT_REFRESH_EXPIRATION }}
                 restart: always
             
               moida-ai:
@@ -65,10 +100,14 @@ jobs:
                 image: ${{ secrets.DOCKER_USERNAME }}/moida-ai:latest
                 ports:
                   - "8000:8000"
+                environment:
+                  - OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+                  - OPENAI_MODEL=${{ secrets.OPENAI_MODEL }}
+                  - OPENAI_EMBEDDING_MODEL=${{ secrets.OPENAI_EMBEDDING_MODEL }}
                 restart: always
             EOF
             
-            # 최신 이미지를 다운로드하고 컨테이너 재시작
+            # 기존 컨테이너 종료 및 최신 이미지 실행
             docker-compose pull
             docker-compose down
             docker-compose up -d
