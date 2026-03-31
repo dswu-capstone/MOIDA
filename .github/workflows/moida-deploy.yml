@@ -20,7 +20,6 @@ jobs:
 
       - name: 3. MOIDA Spring Boot 빌드
         run: |
-          cd moida-spring  # 실제 Spring 폴더명과 동일해야 합니다
           chmod +x gradlew
           ./gradlew clean build -x test
 
@@ -32,12 +31,12 @@ jobs:
 
       - name: 5. MOIDA 도커 이미지 빌드 및 푸시
         run: |
-          # Spring 이미지 빌드 및 푸시
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/moida-spring:latest ./moida-spring
+          # Spring 이미지 빌드 및 푸시 (경로를 점 '.' 하나로 변경했습니다)
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/moida-spring:latest .
           docker push ${{ secrets.DOCKER_USERNAME }}/moida-spring:latest
           
-          # FastAPI 이미지 빌드 및 푸시
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/moida-ai:latest ./moida-ai
+          # FastAPI 이미지 빌드 및 푸시 (경로를 실제 AI 폴더명인 './ai-server'로 변경했습니다)
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/moida-ai:latest ./ai-server
           docker push ${{ secrets.DOCKER_USERNAME }}/moida-ai:latest
 
       - name: 6. EC2에 배포 및 실행
