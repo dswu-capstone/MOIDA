@@ -12,4 +12,4 @@ spring:
 
 ai:
   server:
-    url: http://localhost:8000
+    url: http://${AI_SERVER_HOST:localhost}:8000
