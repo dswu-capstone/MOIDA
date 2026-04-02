@@ -46,7 +46,6 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # 서버에 도커 컴포즈 파일 생성 (모든 환경변수 주입!)
             cat << 'EOF' > docker-compose.yml
             version: '3.8'
             services:
@@ -60,6 +59,7 @@ jobs:
                   - JWT_SECRET=${{ secrets.JWT_SECRET }}
                   - JWT_ACCESS_EXPIRATION=${{ secrets.JWT_ACCESS_EXPIRATION }}
                   - JWT_REFRESH_EXPIRATION=${{ secrets.JWT_REFRESH_EXPIRATION }}
+                  - AI_SERVER_URL=http://moida-ai:8000
                 restart: always
             
               moida-ai:
@@ -74,7 +74,6 @@ jobs:
                 restart: always
             EOF
             
-            # 기존 컨테이너 종료 및 최신 이미지 실행
             docker-compose pull
             docker-compose down
             docker-compose up -d
